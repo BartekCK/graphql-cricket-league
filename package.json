@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/main.ts"
+    "dev": "nodemon src/main.ts",
+    "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create -n",
+    "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
+    "migration:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
+    "migration:down": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +24,7 @@
   },
   "dependencies": {
     "apollo-server-core": "^3.6.2",
+    "csv-parse": "^5.0.4",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "graphql": "^16.2.0",

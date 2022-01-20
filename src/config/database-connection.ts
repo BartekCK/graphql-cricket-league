@@ -1,5 +1,5 @@
 import { Connection, createConnection } from "typeorm";
-import { Player } from "../entities/Player";
+import * as path from "path";
 
 export const startDatabaseConnection = async (): Promise<Connection> => {
   try {
@@ -10,10 +10,11 @@ export const startDatabaseConnection = async (): Promise<Connection> => {
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      entities: [Player],
-      synchronize: true,
+      entities: [path.join(__dirname, "../entities/*.ts")],
+      migrations: [path.join(__dirname, "../migrations/*.ts")],
+      // synchronize: true,
+      migrationsRun: true,
       logging: true,
-
     });
     console.log("Connection with database started");
 

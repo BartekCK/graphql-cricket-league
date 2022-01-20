@@ -7,13 +7,14 @@ export = {
    password: process.env.DB_PASSWORD,
    database: process.env.DB_NAME,
    entities: ['src/entities/*.ts'],
-   migrations: ['src/database/migrations/*.js'],
+   migrations: ['src/migrations/*.ts'],
    // subscribers: ['**/*.subscriber{ .ts,.js }'],
    cli: {
       migrationsDir: 'src/migrations',
       entitiesDir: 'src/entities',
       // subscribersDir: 'dist/**/**.subscriber{.ts,.js}',
    },
-   synchronize: true,
-   migrationsRun: false,
+   synchronize: false,
+   // migrationsRun: true,
+   logging: true
 };

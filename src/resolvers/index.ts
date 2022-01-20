@@ -1,7 +1,9 @@
 import { getRepository } from "typeorm";
 import { Player } from "../entities/Player";
+import { Team } from "../entities/Team";
 
 const playerRepository = getRepository(Player);
+const teamRepository = getRepository(Team);
 
 export const Resolvers = {
   Query: {
@@ -12,6 +14,10 @@ export const Resolvers = {
 
     players: () => {
       return playerRepository.find();
+    },
+
+    teams: () => {
+      return teamRepository.find();
     },
   },
 };

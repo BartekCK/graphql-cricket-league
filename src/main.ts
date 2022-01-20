@@ -5,7 +5,6 @@ import { ApolloServerPluginDrainHttpServer } from "apollo-server-core";
 import * as express from "express";
 import * as http from "http";
 import typeDefs from "./type-defs";
-// import { Resolvers } from "./resolvers";
 
 async function main() {
   try {
@@ -18,7 +17,6 @@ async function main() {
     const apolloServer = new ApolloServer({
       typeDefs,
       resolvers: Resolvers,
-      // mocks: true,
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
 

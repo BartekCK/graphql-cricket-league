@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   postgres:
@@ -12,7 +12,7 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - ./.db/data:/var/lib/postgresql/data
-      - ./.db/tsearch_data:/usr/share/postgresql/13/tsearch_data
+  #      - ./.db/tsearch_data:/usr/share/postgresql/13/tsearch_data
 
   server:
     container_name: server
@@ -22,13 +22,14 @@ services:
       dockerfile: ./.docker/Dockerfile
     volumes:
       - ./src:/usr/server/src
-      - ./.env:/usr/server/.env
+#      - ./.env:/usr/server/.env
       - ./package.json:/usr/server/package.json
       - ./node_modules:/usr/server/node_modules
+      - ./.db/csv:/usr/server/.db/csv
     command: npm run dev
     ports:
       - ${APP_PORT}:${APP_PORT}
     env_file:
       - ./.env
-#    depends_on:
-#      - postgres
+    depends_on:
+      - postgres
