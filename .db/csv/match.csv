@@ -1,4 +1,4 @@
-id,match_date,team_id,opponent_team_id,Season_Id,venue_name,toss_winner_id,toss_decision,is_super_over,is_result,is_duck_worth_lewis,win_type,won_by_player_id,team_winner_id,man_of_the_match_id,first_umpire_id,second_umpire_id,city_name,host_country
+id,match_date,team_id,opponent_team_id,season_id,venue_name,toss_winner_id,toss_decision,is_super_over,is_result,is_duck_worth_lewis,win_type,won_by_player_id,team_winner_id,man_of_the_match_id,first_umpire_id,second_umpire_id,city_name,host_country
 335987,18-Apr-08,2,1,1,M Chinnaswamy Stadium,2,field,0,1,0,by runs,140,1,2,470,477,Bangalore,India
 335988,19-Apr-08,4,3,1,"Punjab Cricket Association Stadium, Mohali",3,bat,0,1,0,by runs,33,3,19,471,487,Chandigarh,India
 335989,19-Apr-08,6,5,1,Feroz Shah Kotla,5,bat,0,1,0,by wickets,9,6,90,472,512,Delhi,India

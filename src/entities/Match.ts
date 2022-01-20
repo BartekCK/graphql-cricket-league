@@ -5,8 +5,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Team } from "../entities/Team";
-import { Player } from "../entities/Player";
+import { Team } from "./Team";
+import { Player } from "./Player";
+import { Season } from "./Season";
 
 @Entity()
 export class Match {
@@ -33,6 +34,15 @@ export class Match {
   @ManyToOne(() => Team, { lazy: true })
   @JoinColumn({ name: "opponent_team_id" })
   opponentTeam: Promise<Team>;
+
+  /* */
+
+  @Column({ type: "int", name: "season_id" })
+  seasonId: number;
+
+  @ManyToOne(() => Season)
+  @JoinColumn({ name: "season_id" })
+  season: Season;
 
   /* */
 
@@ -97,7 +107,7 @@ export class Match {
   @Column({ type: "int", name: "first_umpire_id" })
   firstUmpireId: number;
 
-  @ManyToOne(() => Team, { lazy: true })
+  @ManyToOne(() => Player, { lazy: true })
   @JoinColumn({ name: "first_umpire_id" })
   firstUmpire: Promise<Player>;
 
@@ -106,7 +116,7 @@ export class Match {
   @Column({ type: "int", name: "second_umpire_id" })
   secondUmpireId: number;
 
-  @ManyToOne(() => Team, { lazy: true })
+  @ManyToOne(() => Player, { lazy: true })
   @JoinColumn({ name: "second_umpire_id" })
   secondUmpire: Promise<Player>;
 
