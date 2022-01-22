@@ -6,6 +6,7 @@ const typeDefs = gql`
   type Query {
     player(playerId: Int!): Player
     players: [Player!]!
+    team(teamId: Int!): Team
     teams: [Team!]!
   }
 
@@ -26,7 +27,7 @@ const typeDefs = gql`
     teamCode: String!
   }
 
-  interface PMatch {
+  type PlayerMatch {
     id: Int!
     matchId: Int!
     match: Match!
@@ -34,28 +35,6 @@ const typeDefs = gql`
     team: Team!
     isKeeper: Boolean!
     isCaptain: Boolean!
-  }
-
-  type PlayerMatch implements PMatch {
-    id: Int!
-    matchId: Int!
-    match: Match!
-    teamId: Int!
-    team: Team!
-    isKeeper: Boolean!
-    isCaptain: Boolean!
-  }
-
-  type PlayerMatchWithPlayer implements PMatch {
-    id: Int!
-    matchId: Int!
-    match: Match!
-    teamId: Int!
-    team: Team!
-    isKeeper: Boolean!
-    isCaptain: Boolean!
-    playerId: Int!
-    player: Player!
   }
 
   type Season {

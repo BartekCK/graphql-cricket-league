@@ -6,6 +6,7 @@ import { dateScalar } from "../scalars";
 import { Match } from "../entities/Match";
 import { Season } from "../entities/Season";
 import { GraphQLResolveInfo } from "graphql/type/definition";
+import { FieldNode } from "graphql/language/ast";
 
 const playerRepository = getRepository(Player);
 const teamRepository = getRepository(Team);
@@ -16,25 +17,29 @@ export const Resolvers = {
   Query: {
     player: (_, args) => {
       const { playerId } = args;
-      return playerRepository.findOne(playerId);
+      return playerRepository.findOne(playerId, {
+        relations: [
+          "playedMatches",
+          "playedMatches.match",
+          "playedMatches.team",
+        ],
+      });
     },
-
     players: (_, __, ___, info: GraphQLResolveInfo) => {
-      return playerRepository.find();
+      return playerRepository.find({
+        relations: [
+          "playedMatches",
+          "playedMatches.match",
+          "playedMatches.team",
+        ],
+      });
     },
 
+    team: (_, { teamId }) => {
+      return teamRepository.findOne(teamId);
+    },
     teams: () => {
       return teamRepository.find();
-    },
-  },
-
-  Player: {
-    playedMatches: async ({ id }, args, context, info) => {
-      const result = await playerMatchRepository.find({
-        where: { playerId: id },
-        relations: ["match", "team"],
-      });
-      return result;
     },
   },
 };

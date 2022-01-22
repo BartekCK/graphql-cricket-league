@@ -1,9 +1,9 @@
 import {
   Column,
-  Entity,
+  Entity, Index,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Match } from "./Match";
 import { Player } from "./Player";
@@ -14,6 +14,7 @@ export class PlayerMatch {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({ type: "int", name: "match_id" })
   matchId: number;
 
@@ -21,6 +22,7 @@ export class PlayerMatch {
   @JoinColumn({ name: "match_id" })
   match: Match;
 
+  @Index()
   @Column({ type: "int", name: "player_id" })
   playerId: number;
 
@@ -28,6 +30,7 @@ export class PlayerMatch {
   @JoinColumn({ name: "player_id" })
   player: Player;
 
+  @Index()
   @Column({ type: "int", name: "team_id" })
   teamId: number;
 

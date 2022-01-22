@@ -1,9 +1,9 @@
 import {
   Column,
-  Entity,
+  Entity, Index,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Team } from "./Team";
 import { Player } from "./Player";
@@ -37,6 +37,7 @@ export class Match {
 
   /* */
 
+  @Index()
   @Column({ type: "int", name: "season_id" })
   seasonId: number;
 
