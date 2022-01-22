@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -37,15 +38,17 @@ export class Match {
 
   /* */
 
+  @Index()
   @Column({ type: "int", name: "season_id" })
   seasonId: number;
 
-  @ManyToOne(() => Season)
+  @ManyToOne(() => Season, { eager: true })
   @JoinColumn({ name: "season_id" })
   season: Season;
 
   /* */
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "venue_name" })
   venueName: string;
 
@@ -122,9 +125,11 @@ export class Match {
 
   /* */
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "city_name" })
   cityName: string;
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "host_country" })
   hostCountry: string;
 }
