@@ -40,7 +40,7 @@ export class Match {
   @Column({ type: "int", name: "season_id" })
   seasonId: number;
 
-  @ManyToOne(() => Season)
+  @ManyToOne(() => Season, { eager: true })
   @JoinColumn({ name: "season_id" })
   season: Season;
 

@@ -12,7 +12,7 @@ const typeDefs = gql`
   type Player {
     id: Int!
     name: String!
-    dob: String
+    dob: Date
     battingHand: String
     bowlingSkill: String
     country: String!
@@ -26,7 +26,7 @@ const typeDefs = gql`
     teamCode: String!
   }
 
-  type PlayerMatch {
+  interface PMatch {
     id: Int!
     matchId: Int!
     match: Match!
@@ -36,9 +36,55 @@ const typeDefs = gql`
     isCaptain: Boolean!
   }
 
+  type PlayerMatch implements PMatch {
+    id: Int!
+    matchId: Int!
+    match: Match!
+    teamId: Int!
+    team: Team!
+    isKeeper: Boolean!
+    isCaptain: Boolean!
+  }
+
+  type PlayerMatchWithPlayer implements PMatch {
+    id: Int!
+    matchId: Int!
+    match: Match!
+    teamId: Int!
+    team: Team!
+    isKeeper: Boolean!
+    isCaptain: Boolean!
+    playerId: Int!
+    player: Player!
+  }
+
+  type Season {
+    id: Int!
+    year: String!
+    orangeCapId: Int!
+    purpleCapId: Int!
+    manOfTheSeriesId: Int!
+  }
+
   type Match {
     id: Int!
     matchDate: Date!
+    teamId: Int!
+    opponentTeamId: Int!
+    seasonId: Int!
+    season: Season!
+    venueName: String!
+    tossWinnerId: Int!
+    tossDecision: String!
+    isSuperOver: Boolean!
+    isResult: Boolean!
+    isDuckWorthLewis: Boolean!
+    winType: String!
+    wonByPlayerId: Int
+    teamWinnerId: Int
+    manOfTheMatchId: Int
+    firstUmpireId: Int!
+    secondUmpireId: Int!
     cityName: String!
     hostCountry: String!
   }
