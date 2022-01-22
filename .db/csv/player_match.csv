@@ -1,4 +1,4 @@
-Match_Id,Player_Id,Team_Id,Is_Keeper,Is_Captain
+match_id,player_id,team_id,is_keeper,is_captain
 335987,1,1,0,1
 335987,2,1,0,0
 335987,3,1,0,0

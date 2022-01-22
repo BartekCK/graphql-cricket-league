@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { PlayerMatch } from "./PlayerMatch";
 
 @Entity()
 export class Player {
@@ -22,4 +23,7 @@ export class Player {
 
   @Column({ type: "boolean", name: "is_umpire" })
   isUmpire: boolean;
+
+  @OneToMany(() => PlayerMatch, (playedMatches) => playedMatches.player)
+  playedMatches: PlayerMatch[];
 }
