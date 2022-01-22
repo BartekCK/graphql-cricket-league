@@ -24,6 +24,7 @@ async function main() {
     apolloServer.applyMiddleware({ app });
     httpServer.listen(process.env.APP_PORT, () => {
       console.log(`🚀 App started on port ${process.env.APP_PORT}`);
+      console.log(`🕺💃 Sandbox: https://studio.apollographql.com/sandbox/explorer`)
     });
   } catch (e) {
     console.error(e);
