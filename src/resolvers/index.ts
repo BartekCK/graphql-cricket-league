@@ -1,16 +1,13 @@
 import { getRepository } from "typeorm";
 import { Player } from "../entities/Player";
 import { Team } from "../entities/Team";
-import { PlayerMatch } from "../entities/PlayerMatch";
 import { dateScalar } from "../scalars";
 import { Match } from "../entities/Match";
-import { Season } from "../entities/Season";
 import { GraphQLResolveInfo } from "graphql/type/definition";
-import { FieldNode } from "graphql/language/ast";
 
 const playerRepository = getRepository(Player);
 const teamRepository = getRepository(Team);
-const playerMatchRepository = getRepository(PlayerMatch);
+const matchRepository = getRepository(Match);
 
 export const Resolvers = {
   Date: dateScalar,
@@ -40,6 +37,23 @@ export const Resolvers = {
     },
     teams: () => {
       return teamRepository.find();
+    },
+
+    matches: (_, { matchPlace }) => {
+      const indexedFields = ["m.venue_name", "m.city_name", "m.host_country"];
+
+      const query = matchRepository
+        .createQueryBuilder("m")
+        .addSelect(
+          `similarity((${indexedFields.join("||")}), '${matchPlace}')`,
+          "sml"
+        );
+
+      indexedFields.forEach((field) => {
+        query.orWhere(`${field} % :place`, { place: matchPlace });
+      });
+
+      return query.orderBy("sml", "DESC").getMany();
     },
   },
 };

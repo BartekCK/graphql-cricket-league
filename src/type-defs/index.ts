@@ -6,8 +6,11 @@ const typeDefs = gql`
   type Query {
     player(playerId: Int!): Player
     players: [Player!]!
+
     team(teamId: Int!): Team
     teams: [Team!]!
+
+    matches(matchPlace: String!): [Match!]!
   }
 
   type Player {

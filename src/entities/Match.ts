@@ -1,9 +1,10 @@
 import {
   Column,
-  Entity, Index,
+  Entity,
+  Index,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Team } from "./Team";
 import { Player } from "./Player";
@@ -47,6 +48,7 @@ export class Match {
 
   /* */
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "venue_name" })
   venueName: string;
 
@@ -123,9 +125,11 @@ export class Match {
 
   /* */
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "city_name" })
   cityName: string;
 
+  @Index("TRIGRAM_MATCH_SEARCH", { synchronize: false })
   @Column({ type: "text", name: "host_country" })
   hostCountry: string;
 }
