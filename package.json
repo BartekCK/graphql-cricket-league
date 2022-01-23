@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/main.ts",
+    "clean": "rimraf -rf .dist",
+    "build": "npm run clean && tsc -p .",
+    "start": "node .dist/src/main.js",
     "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create -n",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n",
     "migration:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
@@ -20,6 +23,7 @@
     "apollo-server-express": "^3.6.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },

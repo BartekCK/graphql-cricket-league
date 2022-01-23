@@ -3,6 +3,7 @@ node_modules
 .env
 .db/data
 .db/tsearch_data
+.dist
 
 # OS generated files #
 ######################
