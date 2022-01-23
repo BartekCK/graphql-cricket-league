@@ -28,7 +28,7 @@ services:
       - ./.db/csv:/usr/server/.db/csv
     command: npm run dev
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - ${PORT}:${PORT}
     env_file:
       - ./.env
     depends_on:
