@@ -6,7 +6,9 @@ export const startDatabaseConnection = async (): Promise<Connection> => {
     const connection = await createConnection({
       type: "postgres",
       host: process.env.DB_HOST,
-      port: Number.parseInt(process.env.DB_PORT as string),
+      port: process.env.DB_PORT
+        ? Number.parseInt(process.env.DB_PORT as string)
+        : undefined,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
@@ -14,6 +16,12 @@ export const startDatabaseConnection = async (): Promise<Connection> => {
       migrations: [path.join(__dirname, "../migrations/*.ts")],
       migrationsRun: true,
       logging: true,
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     });
     console.log("Connection with database started");
 

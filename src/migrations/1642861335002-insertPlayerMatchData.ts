@@ -36,14 +36,14 @@ export class insertPlayerMatchData1642861335002 implements MigrationInterface {
     csvStream.pipe(parser);
     parser.on(
       "data",
-      ({
+      async ({
         match_id,
         player_id,
         team_id,
         is_keeper,
          is_captain,
       }: CsvPlayerMatch) => {
-        queryRunner.query(
+        await queryRunner.query(
           `INSERT INTO player_match(match_id, player_id, team_id, is_keeper, is_captain) VALUES ($1, $2, $3, $4, $5);`,
           [
             Number(match_id),
