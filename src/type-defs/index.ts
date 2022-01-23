@@ -2,10 +2,15 @@ import { gql } from "apollo-server-express";
 
 const typeDefs = gql`
   scalar Date
+  
+  input Pagination {
+      offset: Int!
+      limit: Int!
+  }
 
   type Query {
     player(playerId: Int!): Player
-    players: [Player!]!
+    players(pagination: Pagination!): [Player!]!
 
     team(teamId: Int!): Team
     teams: [Team!]!

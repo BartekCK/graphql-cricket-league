@@ -3,7 +3,8 @@ import { Player } from "../entities/Player";
 import { Team } from "../entities/Team";
 import { dateScalar } from "../scalars";
 import { Match } from "../entities/Match";
-import { GraphQLResolveInfo } from "graphql/type/definition";
+import { PaginationInput } from "../interfaces/pagination.interface";
+import { UserInputError } from "apollo-server-express";
 
 const playerRepository = getRepository(Player);
 const teamRepository = getRepository(Team);
@@ -12,8 +13,7 @@ const matchRepository = getRepository(Match);
 export const Resolvers = {
   Date: dateScalar,
   Query: {
-    player: (_, args) => {
-      const { playerId } = args;
+    player: (_, { playerId }) => {
       return playerRepository.findOne(playerId, {
         relations: [
           "playedMatches",
@@ -22,13 +22,23 @@ export const Resolvers = {
         ],
       });
     },
-    players: (_, __, ___, info: GraphQLResolveInfo) => {
+    players: (_, args: PaginationInput) => {
+      const { offset, limit } = args.pagination;
+      if(limit > 20){
+        throw new UserInputError(`Max "limit" value is 20`);
+      }
+      if(offset < 0) {
+        throw new UserInputError(`Min "offset" value is 0`);
+      }
+
       return playerRepository.find({
         relations: [
           "playedMatches",
           "playedMatches.match",
           "playedMatches.team",
         ],
+        skip: offset,
+        take: limit,
       });
     },
 
@@ -44,6 +54,7 @@ export const Resolvers = {
 
       const query = matchRepository
         .createQueryBuilder("m")
+        .cache(5000)
         .addSelect(
           `similarity((${indexedFields.join("||")}), '${matchPlace}')`,
           "sml"

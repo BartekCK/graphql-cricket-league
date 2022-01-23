@@ -12,7 +12,6 @@ export const startDatabaseConnection = async (): Promise<Connection> => {
       database: process.env.DB_NAME,
       entities: [path.join(__dirname, "../entities/*.ts")],
       migrations: [path.join(__dirname, "../migrations/*.ts")],
-      // synchronize: true,
       migrationsRun: true,
       logging: true,
     });
