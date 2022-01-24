@@ -1,15 +1,16 @@
 # 🚀 Graphql-cricket-league
+**Website:** https://graphql-cricket-league-server.herokuapp.com/graphql </br>
 
-Website: https://graphql-cricket-league-server.herokuapp.com/graphql </br>
+![logo](doc/Indian_Premier_League_Official_Logo.png)
 
 App contain simple access to _Indian Premier League_ data by **graphql queries**. The basement
 of application is `Apollo Server` associated with `Express.js`. There was used `schema first` approach
 during development process. Playground by apollo server is exposes because of presentation purposes. 
 
-Inside .db folder you can find a csv files to fill tables by data. There were created special migrations
-to automate this process (more in how to run). For finding the right match that you looked for, **trigrams** 
-were implemented. There were created indexes (`pg_trgm` module) which associate in match table between columns:
-venueName, cityName and hostCountry. This approach make easier finding match by location. 
+Inside `.db` folder you can find a **csv** files to fill tables with data. There were created special migrations
+to automate this process (more inf in how to run). For finding the right **match** that you look for, **trigrams** 
+were implemented. There was created index (`pg_trgm` module) which associate in match table between columns:
+_venueName_, _cityName_ and _hostCountry_. This approach make easier finding **match** by location. 
 
 ![db_schema](doc/db_schema.png)
 ## How run local
